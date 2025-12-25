@@ -4,6 +4,7 @@ import HomeFilledIcon from '@mui/icons-material/HomeFilled';
 import SearchIcon from '@mui/icons-material/Search';
 import PlaylistHead from './components/PlaylistHead';
 import Playlist from './components/Playlist';
+import Navbar from './components/Navbar';
 
 const Layout = styled('div')({
   display: 'flex',
@@ -78,7 +79,10 @@ const AppLayout = () => {
           <Playlist></Playlist>
         </ContentBoxBotton>
       </Sidebar>
-      <Outlet></Outlet>
+      <ContentBox>
+        <Navbar></Navbar>
+        <Outlet></Outlet>
+      </ContentBox>
     </Layout>
   )
 }
