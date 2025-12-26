@@ -7,7 +7,6 @@ import Card from '../../../common/components/Card';
 
 const NewReleases = () => {
   const {data, isLoading, error} = useGetNewReleases();
-  console.log('ddd', data);
 
   if(isLoading){
     return <Loading></Loading>;

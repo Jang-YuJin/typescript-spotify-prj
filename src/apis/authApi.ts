@@ -49,7 +49,6 @@ export const exchangeToken = async(code: string, codeVerifier: string): Promise<
                 'Content-Type': 'application/x-www-form-urlencoded',
             }
         });
-
         return response.data;
     } catch (error) {
         throw new Error('Fail to fetch token!')
