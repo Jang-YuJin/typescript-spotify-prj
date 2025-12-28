@@ -17,3 +17,12 @@ export interface Explicit_content {
     filter_enabled?: boolean;
     filter_locked?: boolean;
 };
+
+export interface Owner {
+    external_urls?: ExternalURLs;
+    href?: string;
+    id?: string;
+    type?: string;
+    uri?: string;
+    display_name?: string | null;
+};

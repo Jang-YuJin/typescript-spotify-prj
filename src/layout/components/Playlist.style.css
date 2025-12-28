@@ -1,0 +1,12 @@
+.playlistContainer{
+    height: 100%;
+    overflow: auto;
+    max-height: calc(100vh - 240px);
+    -ms-overflow-style: none;/* IE 및 Edge */
+    scrollbar-width: none;/* Firefox */
+}
+
+/* Chrome, Safari, Opera */
+.playlistContainer::-webkit-scrollbar {
+  display: none;
+}
