@@ -6,6 +6,7 @@ import './Playlist.style.css'
 import useGetCurrentUserProfile from '../../hooks/useGetCurrentUserProfile';
 import { useInView } from 'react-intersection-observer';
 import Loading from '../../common/components/Loading';
+import { useNavigate } from 'react-router';
 
 const Playlist = () => {
   const { ref, inView } = useInView();
@@ -13,6 +14,7 @@ const Playlist = () => {
   const {data: user} = useGetCurrentUserProfile();
 console.log('ddd', data)
   const [selected, setSelected] = useState('');
+  const navigate = useNavigate();
 
   const selectClick = (id: string | undefined) => {
     if(id === selected){
@@ -24,6 +26,12 @@ console.log('ddd', data)
     } else{
       setSelected(id);
     }
+
+    handlePlaylist(id)
+  };
+
+  const handlePlaylist = (id: string | undefined) => {
+    navigate(`/playlist/${id}`);
   };
 
   useEffect(() => {

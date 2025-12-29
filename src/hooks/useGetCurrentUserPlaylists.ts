@@ -10,7 +10,6 @@ const useGetCurrentUserPlaylists = ({limit, offset}: GetCurrentUserPlaylistsRequ
         },
         initialPageParam: 0,
         getNextPageParam: (lastPage) => {
-            console.log('???')
             if(lastPage.next){
                 const url = new URL(lastPage.next);
                 const nextOffset = url.searchParams.get('offset');
