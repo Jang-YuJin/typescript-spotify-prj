@@ -12,7 +12,6 @@ const Playlist = () => {
   const { ref, inView } = useInView();
   const {data, hasNextPage, isFetchingNextPage, fetchNextPage} = useGetCurrentUserPlaylists({limit: 15, offset: 0});
   const {data: user} = useGetCurrentUserProfile();
-console.log('ddd', data)
   const [selected, setSelected] = useState('');
   const navigate = useNavigate();
 
@@ -36,7 +35,6 @@ console.log('ddd', data)
 
   useEffect(() => {
     if(inView && hasNextPage && !isFetchingNextPage){
-      console.log('useEffect')
       fetchNextPage();
     }
   }, [inView])
