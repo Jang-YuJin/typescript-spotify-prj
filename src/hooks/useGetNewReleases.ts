@@ -3,14 +3,14 @@ import { getNewReleases } from "../apis/albumApi";
 import useClientCredentialToken from "./useClientCredentialToken";
 
 const useGetNewReleases = () => {
-    const ClientCredentialToken = useClientCredentialToken();
+    const clientCredentialToken = useClientCredentialToken();
     return useQuery({
         queryKey: ['new-releases'],
         queryFn: () => {
-            if(!ClientCredentialToken){
+            if(!clientCredentialToken){
                 throw new Error('No token available');
             }
-            return getNewReleases(ClientCredentialToken)},
+            return getNewReleases(clientCredentialToken)},
         
     })
 };

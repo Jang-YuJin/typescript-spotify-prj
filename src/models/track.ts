@@ -53,26 +53,65 @@ export interface Episode {
     restrictions?: {
         reason: string;
     };
-    show: {
-        available_markets: string[];
-        copyrights: {
-            text: string;
-            type: string;
-        }[];
-        description: string;
-        html_description: string;
-        explicit: boolean;
-        external_urls: ExternalURLs;
-        href: string;
-        id: string;
-        images: Image[];
-        is_externally_hosted: boolean;
-        languages: string[];
-        media_type: string;
-        name: string;
-        publisher: string;
-        type: 'show';
-        uri: string;
-        total_episodes: number;
-    }
+    show: Show;
 };
+
+export type SimplifiedEpisode = Omit<Episode, 'show'>;
+
+export interface Show {
+    available_markets: string[];
+    copyrights: {
+        text: string;
+        type: string;
+    }[];
+    description: string;
+    html_description: string;
+    explicit: boolean;
+    external_urls: ExternalURLs;
+    href: string;
+    id: string;
+    images: Image[];
+    is_externally_hosted: boolean;
+    languages: string[];
+    media_type: string;
+    name: string;
+    publisher: string;
+    type: 'show';
+    uri: string;
+    total_episodes: number;
+};
+
+export interface SimplifiedAudiobook {
+    authors: Author[];
+    available_markets: string[];
+    copyrights: Copyright[];
+    description: string;
+    html_description: string;
+    edition?: string;
+    explicit: boolean;
+    external_urls: ExternalURLs;
+    href: string;
+    id: string;
+    images: Image[];
+    languages: string[];
+    media_type: string;
+    name: string;
+    narrators: Narrator[];
+    publisher: string;
+    type: string;
+    uri: string;
+    total_chapters: number;
+};
+
+export interface Author {
+    name?: string;
+};
+
+export interface Copyright {
+    text?: string;
+    type?: string;
+}
+
+export interface Narrator {
+    name?: string;
+}

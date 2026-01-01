@@ -9,6 +9,7 @@ import { useInView } from 'react-intersection-observer';
 import Loading from '../../common/components/Loading';
 import axios from 'axios';
 import ErrorMessage from '../../common/components/ErrorMessage';
+import EmptyPlaylistWithSearch from './components/EmptyPlaylistWithSearch';
 
 const PlaylistDetailPage = () => {
   const {id} = useParams<{id: string}>();
@@ -59,7 +60,7 @@ const PlaylistDetailPage = () => {
     </Grid>
 
     {playlist?.tracks?.total === 0
-    ? <Typography>search</Typography>
+    ? <EmptyPlaylistWithSearch></EmptyPlaylistWithSearch>
     : <Table>
         <TableHead>
           <TableRow>
