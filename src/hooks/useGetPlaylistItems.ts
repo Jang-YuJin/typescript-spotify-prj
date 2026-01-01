@@ -16,7 +16,8 @@ const useGetPlaylistItems = (params: GetPlaylistItemsRequest) => {
                 return nextOffset ? parseInt(nextOffset) : undefined;
             }
             return undefined;
-        }
+        },
+        retry: 0
     });
 };
 

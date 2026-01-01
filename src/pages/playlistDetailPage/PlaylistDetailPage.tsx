@@ -7,6 +7,8 @@ import useGetPlaylistItems from '../../hooks/useGetPlaylistItems';
 import DesktopPlaylistItem from './components/DesktopPlaylistItem';
 import { useInView } from 'react-intersection-observer';
 import Loading from '../../common/components/Loading';
+import axios from 'axios';
+import ErrorMessage from '../../common/components/ErrorMessage';
 
 const PlaylistDetailPage = () => {
   const {id} = useParams<{id: string}>();
@@ -15,8 +17,9 @@ const PlaylistDetailPage = () => {
     return <Navigate to={'/'}></Navigate>;
   }
 
-  const {data: playlist} = useGetPlaylist({playlistId: id});
+  const {data: playlist, isLoading: isPlaylistLoading, error: playlistError} = useGetPlaylist({playlistId: id});
   const {data: playlistItems, isLoading: isPlaylistItemsLoading, error: playlistItemsError, hasNextPage, isFetchingNextPage, fetchNextPage} = useGetPlaylistItems({playlistId: id, limit: 10, offset: 0});
+  const isUnauthorized = (axios.isAxiosError(playlistError) && playlistError.response?.status === 401) || (axios.isAxiosError(playlistItemsError) && playlistItemsError.response?.status === 401);
   const { ref, inView } = useInView();
 
   useEffect(() => {
@@ -25,7 +28,18 @@ const PlaylistDetailPage = () => {
     }
   }, [inView])
 
-  console.log('ddd: ', playlistItems);
+  if(isPlaylistLoading || isPlaylistItemsLoading){
+    return <Loading></Loading>;
+  }
+
+  if(isUnauthorized){
+    return <div>다시 로그인 하세요.</div>
+  }
+
+  if(playlistError || playlistItemsError){
+    return <ErrorMessage errorMessage={playlistError?.message || playlistItemsError?.message || '에러가 발생했습니다. 관리자에게 문의바랍니다.'}></ErrorMessage>
+  }
+
   return (
     <div className='playlistDetailContainer'>
     <Grid className='playlistHeadContainer' container spacing={2}>

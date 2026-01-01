@@ -8,7 +8,8 @@ const useGetPlaylist = (params: GetPlaylistRequest) => {
         queryFn: () => {
             return getPlaylist(params);
         },
-        enabled: !!params.playlistId
+        enabled: !!params.playlistId,
+        retry: 0
     });
 };
 

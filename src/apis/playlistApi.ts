@@ -1,4 +1,5 @@
-import { GetCurrentUserPlaylistsRequest, GetCurrentUserPlaylistsResponse, GetPlaylistItemsRequest, GetPlaylistItemsResponse, GetPlaylistRequest, Playlist, PlaylistTrack } from "../models/playlist";
+import axios from "axios";
+import { CreatePlaylistRequest, GetCurrentUserPlaylistsRequest, GetCurrentUserPlaylistsResponse, GetPlaylistItemsRequest, GetPlaylistItemsResponse, GetPlaylistRequest, Playlist, PlaylistTrack } from "../models/playlist";
 import api from "../utils/api";
 
 const getCurrentUserPlaylists = async({limit, offset}: GetCurrentUserPlaylistsRequest): Promise<GetCurrentUserPlaylistsResponse> => {
@@ -35,6 +36,25 @@ export const getPlaylistItems = async(params: GetPlaylistItemsRequest): Promise<
 
         return response.data;
     } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw error; // 🔥 status 포함된 에러 유지
+        }
         throw new Error('Fail to fetch playlist items!');
+    }
+};
+
+export const createPlaylist = async(userId: string, params: CreatePlaylistRequest): Promise<Playlist> => {
+    try {
+        const {name, playlistPublic, collaborative, description} = params;
+        const response = await api.post(`/users/${userId}/playlists`, {
+            name,
+            public: playlistPublic,
+            collaborative,
+            description
+        });
+
+        return response.data;
+    } catch (error) {
+        throw new Error('Fail to create playlist!');
     }
 };

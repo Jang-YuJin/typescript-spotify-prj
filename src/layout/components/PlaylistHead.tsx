@@ -1,6 +1,7 @@
 import React from 'react'
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { Box, Button, styled, Typography } from '@mui/material';
+import useCreatePlaylist from '../../hooks/useCreatePlaylist';
 
 const PlaylistHeadContainer = styled('div')({
     display: 'flex',
@@ -9,10 +10,16 @@ const PlaylistHeadContainer = styled('div')({
 });
 
 const PlaylistHead = () => {
+  const {mutate: createPlaylist} = useCreatePlaylist();
+
+  const handleCreatePlaylist = () => {
+    createPlaylist({name: 'my playlist'});
+  };
+
   return (
     <PlaylistHeadContainer>
       <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}><BookmarkIcon sx={{mr:2}}></BookmarkIcon><Typography variant='h2' fontWeight={700}>Your Library</Typography></Box>
-      <Box><Button>+</Button></Box>
+      <Box><Button onClick={handleCreatePlaylist}>+</Button></Box>
     </PlaylistHeadContainer>
   )
 }
